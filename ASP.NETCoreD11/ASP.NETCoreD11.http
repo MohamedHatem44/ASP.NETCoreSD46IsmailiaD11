@@ -1,0 +1,16 @@
+@ASP.NETCoreD11_HostAddress = https://localhost:7166
+
+GET {{ASP.NETCoreD11_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+@id=0
+GET {{ASP.NETCoreD11_HostAddress}}/api/test/{{id}}
+
+###
+
+@name=string
+GET {{ASP.NETCoreD11_HostAddress}}/api/employees/{name:alpha}?name={{name}}
+
+###
