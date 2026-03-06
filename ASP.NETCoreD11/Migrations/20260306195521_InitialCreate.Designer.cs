@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASP.NETCoreD11.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260305211402_InitialCreate")]
+    [Migration("20260306195521_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,6 +24,45 @@ namespace ASP.NETCoreD11.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ASP.NETCoreD11.Models.Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "SD"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "UI"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Mob"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "UX"
+                        });
+                });
+
             modelBuilder.Entity("ASP.NETCoreD11.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -35,6 +74,9 @@ namespace ASP.NETCoreD11.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -44,6 +86,8 @@ namespace ASP.NETCoreD11.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DepartmentId");
+
                     b.ToTable("Employees");
 
                     b.HasData(
@@ -51,6 +95,7 @@ namespace ASP.NETCoreD11.Migrations
                         {
                             Id = 1,
                             Age = 26,
+                            DepartmentId = 1,
                             Name = "Ahmed",
                             Salary = 1234m
                         },
@@ -58,6 +103,7 @@ namespace ASP.NETCoreD11.Migrations
                         {
                             Id = 2,
                             Age = 36,
+                            DepartmentId = 2,
                             Name = "Mohamed",
                             Salary = 2234m
                         },
@@ -65,6 +111,7 @@ namespace ASP.NETCoreD11.Migrations
                         {
                             Id = 3,
                             Age = 46,
+                            DepartmentId = 3,
                             Name = "Sara",
                             Salary = 4234m
                         },
@@ -72,6 +119,7 @@ namespace ASP.NETCoreD11.Migrations
                         {
                             Id = 4,
                             Age = 25,
+                            DepartmentId = 4,
                             Name = "Omar",
                             Salary = 5234m
                         },
@@ -79,6 +127,7 @@ namespace ASP.NETCoreD11.Migrations
                         {
                             Id = 5,
                             Age = 23,
+                            DepartmentId = 1,
                             Name = "Ali",
                             Salary = 6234m
                         },
@@ -86,6 +135,7 @@ namespace ASP.NETCoreD11.Migrations
                         {
                             Id = 6,
                             Age = 36,
+                            DepartmentId = 2,
                             Name = "Mai",
                             Salary = 7234m
                         },
@@ -93,6 +143,7 @@ namespace ASP.NETCoreD11.Migrations
                         {
                             Id = 7,
                             Age = 49,
+                            DepartmentId = 3,
                             Name = "Ramy",
                             Salary = 8234m
                         },
@@ -100,6 +151,7 @@ namespace ASP.NETCoreD11.Migrations
                         {
                             Id = 8,
                             Age = 18,
+                            DepartmentId = 4,
                             Name = "Hamada",
                             Salary = 9234m
                         },
@@ -107,6 +159,7 @@ namespace ASP.NETCoreD11.Migrations
                         {
                             Id = 9,
                             Age = 26,
+                            DepartmentId = 1,
                             Name = "Hatem",
                             Salary = 10234m
                         },
@@ -114,9 +167,26 @@ namespace ASP.NETCoreD11.Migrations
                         {
                             Id = 10,
                             Age = 25,
+                            DepartmentId = 2,
                             Name = "Osama",
                             Salary = 17234m
                         });
+                });
+
+            modelBuilder.Entity("ASP.NETCoreD11.Models.Employee", b =>
+                {
+                    b.HasOne("ASP.NETCoreD11.Models.Department", "Department")
+                        .WithMany("Employees")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("ASP.NETCoreD11.Models.Department", b =>
+                {
+                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }

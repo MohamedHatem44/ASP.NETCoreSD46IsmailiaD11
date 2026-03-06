@@ -12,6 +12,7 @@ namespace ASP.NETCoreD11
 
             // Add services to the container.
             builder.Services.AddControllers();
+                //.AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddDbContext<AppDbContext>(
                 options =>

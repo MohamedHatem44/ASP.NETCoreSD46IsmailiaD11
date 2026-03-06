@@ -1,15 +1,16 @@
-﻿namespace ASP.NETCoreD11.Models
+﻿using System.Text.Json.Serialization;
+
+namespace ASP.NETCoreD11.Models
 {
-    public class Employee
+    public class Department
     {
         /*------------------------------------------------------------------*/
         public int Id { get; set; }
         public required string Name { get; set; }
-        public int Age { get; set; }
-        public decimal Salary { get; set; }
         /*------------------------------------------------------------------*/
-        public int DepartmentId { get; set; }
-        public virtual Department? Department { get; set; }
+        //[JsonIgnore]
+        public virtual ICollection<Employee> Employees { get; set; }
+        = new HashSet<Employee>();
         /*------------------------------------------------------------------*/
     }
 }

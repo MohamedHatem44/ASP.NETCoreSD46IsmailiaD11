@@ -1,7 +1,7 @@
-﻿namespace ASP.NETCoreD11.Models
+﻿namespace ASP.NETCoreD11.DTOs.Employee
 {
-    public class Employee
-    {
+    public class EmployeeReadDto
+    {        
         /*------------------------------------------------------------------*/
         public int Id { get; set; }
         public required string Name { get; set; }
@@ -9,7 +9,7 @@
         public decimal Salary { get; set; }
         /*------------------------------------------------------------------*/
         public int DepartmentId { get; set; }
-        public virtual Department? Department { get; set; }
+        public string DepartmentName { get; set; }
         /*------------------------------------------------------------------*/
     }
 }
